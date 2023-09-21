@@ -1,0 +1,29 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Wiki
+{% endblock %}
+
+{% block body %}
+
+    {% if message is not None %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endif %}
+
+    <h1>Create a New Page</h1>
+    <form action="{% url 'newpage' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title">
+        <br><br>
+        <p>Enter the content as Markdown:</p>
+        {% if content is not None %}
+            <textarea name="content" rows="20" cols="200" placeholder="Enter the content in Markdown ">{{ content }}</textarea>
+        {% else %}
+            <textarea name="content" rows="20" cols="200" placeholder="Enter the content in Markdown "></textarea>
+        {% endif %}
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
